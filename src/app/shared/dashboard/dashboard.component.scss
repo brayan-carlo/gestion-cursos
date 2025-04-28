@@ -1,0 +1,33 @@
+
+.app-toolbar {
+  position: fixed; 
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000; 
+  height: 64px; 
+ 
+}
+
+.main-container {
+  margin-top: 64px;
+}
+
+.sidenav-container {
+  margin-top: 0; 
+}
+
+mat-sidenav {
+  margin-top: 64px;
+  height: calc(100% - 64px);
+}
+
+
+.sidenav-content {
+  padding: 16px;
+  
+}
+
+.page-content {
+  padding: 24px;
+}

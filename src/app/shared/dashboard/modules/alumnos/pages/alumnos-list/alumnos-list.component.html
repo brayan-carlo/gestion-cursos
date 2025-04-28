@@ -1,0 +1,14 @@
+
+<div class="alumnos-list-header">
+    <h2>Alumnos</h2>
+
+    <app-alumnos-table [alumnos]="alumnos$ | async" (eliminarAlumno)="eliminar($event)"(editar)="editar($event)"></app-alumnos-table>
+
+   <button mat-raised-button color="primary" [routerLink]="['/dashboard/alumnos/abm']">Nuevo Alumno</button>
+  </div>
+  
+  
+  
+
+
+  

@@ -1,0 +1,25 @@
+<mat-toolbar color="primary" class="app-toolbar">
+  <app-toolbar></app-toolbar>
+</mat-toolbar>
+
+<div class="main-container">
+  <mat-sidenav-container class="sidenav-container">
+
+    <mat-sidenav
+      #drawer
+      mode="side"
+      fixedInViewport="true"
+      [attr.role]="'navigation'">
+
+      <app-navbar></app-navbar>
+
+    </mat-sidenav>
+
+    <mat-sidenav-content class="sidenav-content">
+      <div class="page-content">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
+</div>  
