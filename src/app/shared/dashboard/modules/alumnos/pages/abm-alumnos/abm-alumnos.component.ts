@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Alumno } from 'src/app/models/alumno.model';
+import { AlumnoService } from 'src/app/core/services/alumno.service';
+
 
 @Component({
   standalone: false,
@@ -16,7 +18,8 @@ export class AbmAlumnosComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private alumnoService: AlumnoService
   ) {
     this.alumnoForm = this.fb.group({
       nombre: ['', Validators.required],
@@ -30,37 +33,36 @@ export class AbmAlumnosComponent implements OnInit {
       const id = params.get('id');
       if (id) {
         this.alumnoId = +id;
-        // TODO: traer alumno para editar
-        this.loadAlumno(this.alumnoId);
+        const alumno = this.alumnoService.obtenerAlumnoPorId(this.alumnoId);
+        if (alumno) {
+          this.alumnoForm.patchValue({
+            nombre: alumno.nombre,
+            apellido: alumno.apellido,
+            email: alumno.email
+          });
+        }
       }
     });
   }
-
-  loadAlumno(id: number) {
-    const alumnoMock: Alumno = {
-      id,
-      nombre: 'Alumno de prueba',
-      apellido: 'Apellido de prueba',
-      email: 'email@prueba.com',
-      cursoId: 888,
-    };
-    this.alumnoForm.patchValue(alumnoMock);
-  }
+  
   guardar() {
     if (this.alumnoForm.valid) {
       const alumno: Alumno = {
-        id: this.alumnoId ?? Date.now(),
+        id: this.alumnoId ?? Date.now(), 
         ...this.alumnoForm.value,
-        cursoId: 1 
+        cursoId: 1
       };
-
-      console.log('Alumno guardado:', alumno);
-
+  
+      
+        this.alumnoService.agregarAlumno(alumno);
+      
+  
       this.router.navigate(['/dashboard/alumnos']);
     } else {
       this.alumnoForm.markAllAsTouched();
     }
   }
+  
 
   cancelar() {
     this.router.navigate(['/dashboard/alumnos']);

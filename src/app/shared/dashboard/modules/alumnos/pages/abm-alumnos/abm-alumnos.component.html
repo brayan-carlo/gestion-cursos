@@ -1,6 +1,5 @@
 <div class="abm-alumno-container">
-  <h2 *ngIf="alumnoId; else nuevo">Editar Alumno</h2>
-  <ng-template #nuevo><h2>Nuevo Alumno</h2></ng-template>
+  <h2>Nuevo Alumno</h2>
 
   <form [formGroup]="alumnoForm" (ngSubmit)="guardar()">
     <mat-form-field appearance="fill" class="full-width">

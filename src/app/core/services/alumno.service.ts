@@ -65,4 +65,11 @@ export class AlumnoService {
     const alumnosActuales = this.alumnosSubject.getValue();
     return alumnosActuales.find(a => a.id === id);
   }
+
+  agregarAlumno(nuevoAlumno: Alumno): void {
+    const alumnosActuales = this.alumnosSubject.getValue();
+    const alumnosActualizados = [...alumnosActuales, nuevoAlumno];
+    this.alumnosSubject.next(alumnosActualizados);
+  }
+  
 }

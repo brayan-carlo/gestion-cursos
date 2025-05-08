@@ -1,18 +1,16 @@
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<mat-toolbar>
-  <button
-    (click)="toggleDrawer()"
-    mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+<mat-toolbar color = "primary" class="toolbar-container">
+  <button (click)="toggleDrawer()" mat-icon-button aria-label="Menú">
     <mat-icon>menu</mat-icon>
   </button>
 
-  <span class="espacio"></span>
+  <span class="title">Gestor de cursos</span>
 
-  <span>Gestor de cursos</span>
+  <span class="spacer"></span>
 
-  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="menu button">
+  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menú usuario">
     <mat-icon>more_vert</mat-icon>
   </button>
+
   <mat-menu #menu="matMenu">
     <button mat-menu-item (click)="logout()">
       <mat-icon>logout</mat-icon>
@@ -20,3 +18,5 @@
     </button>
   </mat-menu>
 </mat-toolbar>
+
+
