@@ -20,10 +20,10 @@
     <td>{{ curso.Nombre }}</td>
     <td>{{ curso.descripcion }}</td>
     <td>{{ curso.duracion }}</td>
-    <td>  <ng-container *ngIf="editandoCursoId === curso.id; else precioVista">
-        <input type="number" [(ngModel)]="cursoEditado.precio" />
-      </ng-container>
-      <ng-template #precioVista>{{ curso.precio | currency }}</ng-template></td>
+    <td><ng-container *ngIf="editandoCursoId === curso.id; else precioVista">
+    <input type="number" [(ngModel)]="curso.precio" />
+  </ng-container>
+  <ng-template #precioVista>{{ curso.precio | currency }}</ng-template></td>
     <td><img [src]="curso.avatar" alt="curso" width="80" class="img-rounded" /></td>
     <td>
       <p-tag 
@@ -34,12 +34,22 @@
     <td>{{ curso.inicio }}</td>
     <td>{{ curso.fin }}</td>
     <td>
-  <button mat-icon-button color="primary" (click)="editarCurso(curso.id)">
-    <mat-icon>edit</mat-icon>
+  <ng-container *ngIf="editandoCursoId === curso.id; else accionesNormales">
+  <button mat-icon-button color="accent" (click)="guardarCurso(curso)">
+    <mat-icon>check</mat-icon>
   </button>
-  <button mat-icon-button color="warn" (click)="deleteCurso(curso.id)">
-    <mat-icon>delete</mat-icon>
+  <button mat-icon-button (click)="cancelarEdicion()">
+    <mat-icon>close</mat-icon>
   </button>
+</ng-container>
+  <ng-template #accionesNormales>
+    <button mat-icon-button color="primary" (click)="editarCurso(curso)">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button color="warn" (click)="deleteCurso(curso.id)">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </ng-template>
     </td>
   </tr>
 </ng-template>

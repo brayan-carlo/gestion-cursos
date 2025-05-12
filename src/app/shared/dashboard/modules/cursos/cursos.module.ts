@@ -10,12 +10,19 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
+import { CursoAbmComponent } from './Pages/abm-cursos/abm-cursos.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+
 
 
 @NgModule({
   declarations: [
     CursosListComponent,
     CursosTableComponent,
+    CursoAbmComponent
     
   ],
   imports: [
@@ -27,7 +34,11 @@ import { FormsModule } from '@angular/forms';
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
-    FormsModule
+    FormsModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+    MatNativeDateModule,
+    MatDatepickerModule
     
   ],
   exports: [

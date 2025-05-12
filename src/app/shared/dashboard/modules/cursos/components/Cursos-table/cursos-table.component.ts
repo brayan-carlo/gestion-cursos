@@ -31,20 +31,13 @@ export class CursosTableComponent {
   }
 
   editarCurso(curso: Cursos): void {
-    this.editandoCursoId = curso.id;
-    this.cursoEditado = { ...curso };
-  }
+  this.editandoCursoId = curso.id;
+}
 
-  guardarCurso(): void {
-    if (this.editandoCursoId !== null) {
-      const cursoFinal: Cursos = {
-        ...this.cursos.find(c => c.id === this.editandoCursoId)!,
-        ...this.cursoEditado,
-      };
-      this.cursoService.editarCurso(cursoFinal);
-      this.cancelarEdicion();
-    }
-  }
+  guardarCurso(curso: Cursos): void {
+  this.cursoService.editarCurso(curso);
+  this.cancelarEdicion();
+}
 
   cancelarEdicion(): void {
     this.editandoCursoId = null;

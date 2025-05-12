@@ -18,7 +18,7 @@ export class DashboardComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.drawerService.toggleDrawer$.subscribe(() => {
-      this.drawer.toggle();  // Aquí abre o cierra el único drawer correcto
+      this.drawer.toggle();  
     });
   }
 } 
