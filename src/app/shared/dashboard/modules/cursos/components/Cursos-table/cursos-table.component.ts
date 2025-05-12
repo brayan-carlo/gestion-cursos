@@ -1,6 +1,56 @@
-import { MatExpansionModule } from '@angular/material/expansion';
 
-@NgModule({
-  imports: [ MatExpansionModule ]
+import { Component, Input } from '@angular/core';
+import { CursoService } from 'src/app/core/services/curso.service';
+import { Router } from '@angular/router';
+import { Cursos } from "src/app/models/curso.model";
+
+@Component({
+  selector: 'app-cursos-table',
+  standalone: false,
+  styleUrls: ['./cursos-table.component.scss'],
+  templateUrl: './cursos-table.component.html',
 })
-export class TuModulo {}
+export class CursosTableComponent {
+
+ @Input() cursos: Cursos[] = [];
+  editandoCursoId: number | null = null;
+  cursoEditado: Partial<Cursos> = {};
+
+
+ constructor(
+    private cursoService: CursoService,
+    private router: Router
+  ) {}
+
+ deleteCurso(id: number): void {
+   const confirmar = confirm('¿Estás seguro que quieres eliminar este alumno?');
+    if (confirmar) {
+       this.cursoService.eliminarCursos(id);
+    }
+   
+  }
+
+  editarCurso(curso: Cursos): void {
+    this.editandoCursoId = curso.id;
+    this.cursoEditado = { ...curso };
+  }
+
+  guardarCurso(): void {
+    if (this.editandoCursoId !== null) {
+      const cursoFinal: Cursos = {
+        ...this.cursos.find(c => c.id === this.editandoCursoId)!,
+        ...this.cursoEditado,
+      };
+      this.cursoService.editarCurso(cursoFinal);
+      this.cancelarEdicion();
+    }
+  }
+
+  cancelarEdicion(): void {
+    this.editandoCursoId = null;
+    this.cursoEditado = {};
+  }
+
+ 
+}
+

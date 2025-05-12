@@ -1,11 +1,48 @@
-<mat-accordion>
-    <mat-expansion-panel *ngFor="let item of items; let i = index">
-      <mat-expansion-panel-header>
-        {{ item }}
-      </mat-expansion-panel-header>
-      <p>
-        Contenido del ítem {{ i + 1 }}
-      </p>
-    </mat-expansion-panel>
-  </mat-accordion>
-  
+
+<p-table [value]="cursos" [paginator]="true" [rows]="5" [responsiveLayout]="'scroll'">
+  <ng-template pTemplate="header">
+  <tr>
+    <th class="table-header">Id</th>
+    <th class="table-header">Curso</th>
+    <th class="table-header">Descripción</th>
+    <th class="table-header">Duración</th>
+    <th class="table-header">Precio</th>
+    <th class="table-header">Imagen</th>
+    <th class="table-header">Estado</th>
+    <th class="table-header">Inicio</th>
+    <th class="table-header">Fin</th>
+    <th class="table-header">Acciones</th>
+  </tr>
+</ng-template>
+<ng-template pTemplate="body" let-curso>
+  <tr>
+    <td>{{ curso.id }}</td>
+    <td>{{ curso.Nombre }}</td>
+    <td>{{ curso.descripcion }}</td>
+    <td>{{ curso.duracion }}</td>
+    <td>  <ng-container *ngIf="editandoCursoId === curso.id; else precioVista">
+        <input type="number" [(ngModel)]="cursoEditado.precio" />
+      </ng-container>
+      <ng-template #precioVista>{{ curso.precio | currency }}</ng-template></td>
+    <td><img [src]="curso.avatar" alt="curso" width="80" class="img-rounded" /></td>
+    <td>
+      <p-tag 
+        [value]="curso.status"
+        [severity]="curso.status === 'Abierto' ? 'success' : 'danger'">
+      </p-tag>
+    </td>
+    <td>{{ curso.inicio }}</td>
+    <td>{{ curso.fin }}</td>
+    <td>
+  <button mat-icon-button color="primary" (click)="editarCurso(curso.id)">
+    <mat-icon>edit</mat-icon>
+  </button>
+  <button mat-icon-button color="warn" (click)="deleteCurso(curso.id)">
+    <mat-icon>delete</mat-icon>
+  </button>
+    </td>
+  </tr>
+</ng-template>
+
+</p-table>  
+

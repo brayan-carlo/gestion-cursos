@@ -2,7 +2,7 @@
 import { Component, Input } from '@angular/core';
 import { Output, EventEmitter } from '@angular/core';
 import { Alumno } from 'src/app/models/alumno.model';
-import { AlumnoService } from 'src/app/core/services/alumno.service';
+import { AlumnoService } from 'app/core/services/alumno.service';
 import { MatTableDataSource } from '@angular/material/table';
 
 

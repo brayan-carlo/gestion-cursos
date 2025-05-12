@@ -1,8 +1,12 @@
-export interface Curso {
+export interface Cursos {
     id: number;
-    nombre: string;
+    Nombre: string;
+    duracion: string;
     descripcion: string;
-    fechaInicio: Date;
-    fechaFin: Date;
+    precio: number;
+    avatar: string;
+    status: string;
+    inicio: string;
+    fin: string;
   }
   
