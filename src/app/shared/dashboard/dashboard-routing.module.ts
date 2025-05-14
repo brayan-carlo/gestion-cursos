@@ -21,7 +21,7 @@ const routes: Routes = [
       {
         path: 'inscripciones',
         loadChildren: () =>
-          import('./modules/inscripciones/inscripciones.module').then(m => m.InscripcionesModule),
+          import('./modules/inscripciones/inscripcion.module').then(m => m.InscripcionesModule),
       }
     ],
   },

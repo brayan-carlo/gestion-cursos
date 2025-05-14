@@ -1,0 +1,20 @@
+<div class="encabezado">
+  <h1 class="titulo">Mis inscripciones</h1>
+  <p class="descripcion">Lista de cursos a los que estás inscrito</p>
+</div>
+
+
+<div class="curso-grid">
+  <div class="curso-card" *ngFor="let curso of cursosInscritos">
+    <img [src]="curso.avatar" alt="Imagen del curso" class="curso-img">
+    <h3>{{ curso.Nombre }}</h3>
+    <p>{{ curso.descripcion }}</p>
+    <small>{{ curso.duracion }} | ${{ curso.precio }}</small>
+    <p class="estado">{{ curso.status }}</p>
+    
+      <p class="fechas">
+    📅 <strong>Inicio:</strong> {{ curso.inicio | date: 'longDate' }} <br />
+    🏁 <strong>Fin:</strong> {{ curso.fin | date: 'longDate' }}
+  </p>
+  </div>
+</div>

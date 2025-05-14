@@ -1,0 +1,64 @@
+.curso-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.curso-card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  text-align: center;
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  .curso-img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 12px;
+  }
+
+  h3 {
+    margin: 0 0 8px 0;
+  }
+
+  p {
+    margin: 8px 0;
+  }
+
+  .estado {
+    color: #28a745;
+    font-weight: bold;
+  }
+
+  .info-btn {
+    margin-top: 12px;
+    padding: 8px 16px;
+    background-color: #1976d2;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #125ea3;
+    }
+  }
+}
+
+.encabezado {
+  margin-left: 20px;
+  color: #264fca;
+}
+
+.fechas {
+    font-size: 0.95rem;
+    color: #2d3748;
+  }

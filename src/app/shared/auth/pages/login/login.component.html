@@ -1,20 +1,29 @@
-<div class="login-container">
-    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-      <h2>Acceso</h2>
-  
-      <mat-form-field appearance="fill" class="full-width">
-        <mat-label>Email</mat-label>
-        <input matInput type="email" formControlName="email">
-        <mat-error *ngIf="loginForm.get('email')?.invalid">Email inválido</mat-error>
-      </mat-form-field>
-  
-      <mat-form-field appearance="fill" class="full-width">
-        <mat-label>Contraseña</mat-label>
-        <input matInput type="password" formControlName="password">
-        <mat-error *ngIf="loginForm.get('password')?.invalid">Contraseña requerida</mat-error>
-      </mat-form-field>
-  
-      <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">Ingresar</button>
-    </form>
-  </div>
-  
+<div class="login-wrapper">
+  <mat-card class="login-card">
+    <mat-card-title>Acceso</mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" formControlName="email">
+          <mat-error *ngIf="loginForm.get('email')?.invalid">Email inválido</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Contraseña</mat-label>
+          <input matInput type="password" formControlName="password">
+          <mat-error *ngIf="loginForm.get('password')?.invalid">Contraseña requerida</mat-error>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit" class="full-width" [disabled]="loginForm.invalid">
+          Ingresar
+        </button>
+      </form>
+
+      <div class="login-actions">
+        <button mat-button color="accent" (click)="onRegister()">Suscribirse</button>
+        <button mat-button (click)="onForgotPassword()">Recuperar contraseña</button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -31,10 +31,19 @@ export class LoginComponent {
     const success = this.authService.login(email, password);
 
     if (success) {
-      console.log("entro al if de direccion");
       this.router.navigate(['/dashboard']);
     } else {
       alert('Credenciales incorrectas.');
     }
   }
+
+  onRegister() {
+  // Redirigir al registro o mostrar modal
+  console.log('Ir a registro');
+}
+
+onForgotPassword() {
+  // Redirigir a recuperación de contraseña
+  console.log('Ir a recuperación de contraseña');
+}
 }
