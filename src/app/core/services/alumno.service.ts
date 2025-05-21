@@ -12,28 +12,24 @@ export class AlumnoService {
       nombre: 'Juan',
       apellido: 'Pérez',
       email: 'juan.perez@example.com',
-      cursoId: 1
     },
     {
       id: 2,
       nombre: 'María',
       apellido: 'Gómez',
       email: 'marsia.gomez@example.com',
-      cursoId: 2
     },
     {
       id: 4,
       nombre: 'rgreg',
       apellido: 'Gómez',
       email: 'marisa.gomez@example.com',
-      cursoId: 4
     },
     {
       id: 3,
       nombre: 'ergeg',
       apellido: 'ergerg',
       email: 'margia.gomez@example.com',
-      cursoId: 3
     }
   ]);
 

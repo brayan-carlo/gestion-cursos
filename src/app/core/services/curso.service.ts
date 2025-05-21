@@ -27,7 +27,7 @@ export class CursoService {
         descripcion: 'Curso de Css',
         precio: 100,
         avatar: 'https://www.w3schools.com/css/img_chania.jpg',
-        status: 'Abierto',
+        status: 'Cerrado',
         inicio: '2023-10-01',
         fin: '2023-12-31',
       },
@@ -49,7 +49,7 @@ export class CursoService {
         descripcion: 'Curso de Angular',
         precio: 100,
         avatar: 'https://www.w3schools.com/angular/img_chania.jpg',
-        status: 'Abierto',
+        status: 'Cerrado',
         inicio: '2023-10-01',
         fin: '2023-12-31',
       }

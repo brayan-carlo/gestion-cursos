@@ -19,14 +19,15 @@ export class InscripcionTableComponent implements OnInit {
     private cursoService: CursoService
   ) {}
 
-  ngOnInit(): void {
-    this.inscripcionService.inscripciones$.subscribe(inscripciones => {
-      this.cursoService.Cursoss$.subscribe(cursos => {
-        const cursosMap = new Map(cursos.map(c => [c.id, c]));
-        this.cursosInscritos = inscripciones
-          .map(i => cursosMap.get(i.cursoId))
-          .filter((curso): curso is Cursos => !!curso);
-      });
+ ngOnInit(): void {
+  this.inscripcionService.inscripciones$.subscribe(inscripciones => {
+    this.cursoService.Cursoss$.subscribe(cursos => {
+      const cursosMap = new Map(cursos.map(c => [c.id, c]));
+      this.cursosInscritos = inscripciones
+        .map(i => cursosMap.get(i.cursoId))
+        .filter((curso): curso is Cursos => !!curso && curso.status === 'Abierto');
     });
-  }
+  });
+}
+
 }

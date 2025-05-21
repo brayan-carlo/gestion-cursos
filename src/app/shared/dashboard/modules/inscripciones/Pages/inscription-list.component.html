@@ -1,0 +1,72 @@
+
+<mat-form-field>
+  <mat-label>Buscar alumno</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ejem.. Juan" #input>
+</mat-form-field>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+ 
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef>ID</th>
+    <td mat-cell *matCellDef="let alumno">{{ alumno.id }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="nombre">
+    <th mat-header-cell *matHeaderCellDef>Nombre</th>
+    <td mat-cell *matCellDef="let alumno">
+      <div *ngIf="editandoId === alumno.id; else mostrarNombre">
+        <input [(ngModel)]="alumno.nombre" />
+      </div>
+      <ng-template #mostrarNombre>{{ alumno.nombre }}</ng-template>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="apellido">
+    <th mat-header-cell *matHeaderCellDef>Apellido</th>
+    <td mat-cell *matCellDef="let alumno">
+      <div *ngIf="editandoId === alumno.id; else mostrarApellido">
+        <input [(ngModel)]="alumno.apellido" />
+      </div>
+      <ng-template #mostrarApellido>{{ alumno.apellido }}</ng-template>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="email">
+    <th mat-header-cell *matHeaderCellDef>Email</th>
+    <td mat-cell *matCellDef="let alumno">
+      <div *ngIf="editandoId === alumno.id; else mostrarEmail">
+        <input [(ngModel)]="alumno.email" />
+      </div>
+      <ng-template #mostrarEmail>{{ alumno.email }}</ng-template>
+    </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="cursoId">
+    <th mat-header-cell *matHeaderCellDef>Curso</th>
+    <td mat-cell *matCellDef="let alumno">
+      <div *ngIf="editandoId === alumno.id; else mostrarCurso">
+        <input type="number" [(ngModel)]="alumno.cursoId" />
+      </div>
+      <ng-template #mostrarCurso>{{ alumno.cursoId }}</ng-template>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="acciones">
+    <th mat-header-cell *matHeaderCellDef> Acciones </th>
+    <td mat-cell *matCellDef="let alumno">
+      <div *ngIf="editandoId === alumno.id; else botonesAcciones">
+        <button mat-button color="primary" (click)="guardar(alumno)">Guardar</button>
+        </div>
+      <ng-template #botonesAcciones>
+        <button mat-icon-button color="primary" (click)="edit(alumno.id)" aria-label="Editar alumno">
+          <mat-icon>edit</mat-icon> </button>
+        <button mat-icon-button color="warn" (click)="onEliminar(alumno.id)" aria-label="Eliminar alumno">
+          <mat-icon>close</mat-icon> </button>
+      </ng-template>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

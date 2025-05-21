@@ -37,13 +37,6 @@ export class LoginComponent {
     }
   }
 
-  onRegister() {
-  // Redirigir al registro o mostrar modal
-  console.log('Ir a registro');
+  
 }
 
-onForgotPassword() {
-  // Redirigir a recuperación de contraseña
-  console.log('Ir a recuperación de contraseña');
-}
-}

@@ -1,6 +1,6 @@
 <div class="encabezado">
-  <h1 class="titulo">Mis inscripciones</h1>
-  <p class="descripcion">Lista de cursos a los que estás inscrito</p>
+  <h1 class="titulo">Cursos</h1>
+  <h2 class="descripcion">Lista de cursos abiertos</h2>
 </div>
 
 
@@ -16,5 +16,9 @@
     📅 <strong>Inicio:</strong> {{ curso.inicio | date: 'longDate' }} <br />
     🏁 <strong>Fin:</strong> {{ curso.fin | date: 'longDate' }}
   </p>
+
+    <div class="acciones">
+      <button mat-raised-button color="primary" (click)="Inscripciones(curso)">inscripciónes</button>
+    </div>
   </div>
 </div>
