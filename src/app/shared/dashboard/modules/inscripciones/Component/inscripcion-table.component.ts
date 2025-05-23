@@ -3,6 +3,8 @@ import { InscripcionService } from 'src/app/core/services/inscripcion.service';
 import { CursoService } from 'src/app/core/services/curso.service';
 import { Inscripcion } from 'src/app/models/inscripcion.model';
 import { Cursos } from 'src/app/models/curso.model';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-inscripcion-table',
@@ -16,8 +18,13 @@ export class InscripcionTableComponent implements OnInit {
 
   constructor(
     private inscripcionService: InscripcionService,
-    private cursoService: CursoService
+    private cursoService: CursoService,
+    private router: Router
   ) {}
+
+  Inscripciones(curso: any) {
+  this.router.navigate(['/cursos', curso.id, 'inscripciones']);
+}
 
  ngOnInit(): void {
   this.inscripcionService.inscripciones$.subscribe(inscripciones => {

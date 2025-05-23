@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Inscripcion } from 'src/app/models/inscripcion.model';
 
+
 @Injectable({
   providedIn: 'root'
+  
 })
 export class InscripcionService {
 
@@ -17,5 +19,15 @@ export class InscripcionService {
 
   inscripciones$: Observable<Inscripcion[]> = this.inscripcionesSubject.asObservable();
 
+
   constructor() {}
+
+  eliminarInscripcion(id: number): void {
+  const actuales = this.inscripcionesSubject.getValue();
+  const nuevas = actuales.filter(i => i.id !== id);
+  this.inscripcionesSubject.next(nuevas);
 }
+
+
+}
+
