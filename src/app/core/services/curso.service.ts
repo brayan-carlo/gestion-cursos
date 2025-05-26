@@ -15,7 +15,7 @@ export class CursoService {
         duracion: '3 meses',
         descripcion: 'Curso de Html',
         precio: 100,
-        avatar: 'https://www.w3schools.com/html/img_chania.jpg',
+        avatar: '/imagenes/html5-logo.jpg',
         status: 'Abierto',
         inicio: '2023-10-01',
         fin: '2023-12-31',
@@ -26,7 +26,7 @@ export class CursoService {
         duracion: '3 meses',
         descripcion: 'Curso de Css',
         precio: 100,
-        avatar: 'https://www.w3schools.com/css/img_chania.jpg',
+        avatar: '/imagenes/css-logo.jpg',
         status: 'Cerrado',
         inicio: '2023-10-01',
         fin: '2023-12-31',
@@ -37,7 +37,7 @@ export class CursoService {
         duracion: '3 meses',
         descripcion: 'Curso de JavaScript',
         precio: 100,
-        avatar: 'https://www.w3schools.com/js/img_chania.jpg',
+        avatar: '/imagenes/js-logo.jpg',
         status: 'Abierto',
         inicio: '2023-10-01',
         fin: '2023-12-31',
@@ -48,8 +48,8 @@ export class CursoService {
         duracion: '3 meses',
         descripcion: 'Curso de Angular',
         precio: 100,
-        avatar: 'https://www.w3schools.com/angular/img_chania.jpg',
-        status: 'Cerrado',
+        avatar: '/imagenes/angular-logo.jpg',
+        status: 'Abierto',
         inicio: '2023-10-01',
         fin: '2023-12-31',
       }
@@ -61,12 +61,12 @@ export class CursoService {
 
 
    editarCurso(CursoEditado: Cursos): void {
-      const cursosActuales = this.CursosSubject.getValue();
-      const CursossActualizados = cursosActuales.map(cursos =>
-        CursoEditado.id === CursoEditado.id ? CursoEditado : cursos
-      );
-      this.CursosSubject.next(CursossActualizados);
-    }
+  const cursosActuales = this.CursosSubject.getValue();
+  const CursossActualizados = cursosActuales.map(cursos =>
+    cursos.id === CursoEditado.id ? CursoEditado : cursos
+  );
+  this.CursosSubject.next(CursossActualizados);
+}
     
   
     eliminarCursos(id: number): void {

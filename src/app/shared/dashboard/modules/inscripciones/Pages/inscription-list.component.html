@@ -41,7 +41,22 @@
 </mat-table>
 
 <div class="mt-4">
-  <button mat-raised-button color="primary" (click)="nuevaInscripcion()">
+ <!-- <button mat-raised-button [matMenuTriggerFor]="menuAlumnos" color="primary" (click)="agregarAlumno">
     Nueva Inscripción
-  </button>
+  </button> -->
+  <button mat-raised-button color="accent" (click)="abrirDialogoSeleccion()">Nuevo alumno</button>
+
+  
 </div>
+
+
+<!--<mat-menu #menuAlumnos="matMenu" class="menu-alumnos">
+  <ng-container *ngIf="alumnosNoInscritos.length; else noAlumnos">
+    <button mat-menu-item *ngFor="let alumno of alumnosNoInscritos" (click)="agregarAlumno(alumno)">
+      {{ alumno.nombre }} {{ alumno.apellido }}
+    </button>
+  </ng-container>
+  <ng-template #noAlumnos>
+    <button mat-menu-item disabled>No hay alumnos disponibles</button>
+  </ng-template>
+</mat-menu>-->

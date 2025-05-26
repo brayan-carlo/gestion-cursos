@@ -11,7 +11,7 @@
     <th class="table-header">Estado</th>
     <th class="table-header">Inicio</th>
     <th class="table-header">Fin</th>
-    <th class="table-header">Acciones</th>
+    <th class="table-header" *ngIf="rol === 'admin'">Acciones</th>
   </tr>
 </ng-template>
 <ng-template pTemplate="body" let-curso>
@@ -26,15 +26,24 @@
   <ng-template #precioVista>{{ curso.precio | currency }}</ng-template></td>
     <td><img [src]="curso.avatar" alt="curso" width="80" class="img-rounded" /></td>
     <td>
-      <p-tag 
-        [value]="curso.status"
-        [severity]="curso.status === 'Abierto' ? 'success' : 'danger'">
-      </p-tag>
-    </td>
+  <ng-container *ngIf="editandoCursoId === curso.id; else estadoVista">
+    <select [(ngModel)]="curso.status">
+      <option value="Abierto">Abierto</option>
+      <option value="Cerrado">Cerrado</option>
+    </select>
+  </ng-container>
+  <ng-template #estadoVista>
+    <p-tag 
+      [value]="curso.status"
+      [severity]="curso.status === 'Abierto' ? 'success' : 'danger'">
+    </p-tag>
+  </ng-template>
+</td>
+
     <td>{{ curso.inicio }}</td>
     <td>{{ curso.fin }}</td>
-    <td>
-  <ng-container *ngIf="editandoCursoId === curso.id; else accionesNormales">
+    <td *ngIf="rol === 'admin'"> 
+  <ng-container  *ngIf="editandoCursoId === curso.id; else accionesNormales">
   <button mat-icon-button color="accent" (click)="guardarCurso(curso)">
     <mat-icon>check</mat-icon>
   </button>

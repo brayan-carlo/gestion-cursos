@@ -1,6 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { CursoService } from 'src/app/core/services/curso.service';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 
 
@@ -12,13 +13,15 @@ import { CursoService } from 'src/app/core/services/curso.service';
 })
 export class CursosListComponent implements OnInit {
   cursos: any[] = [];
+  rol: string | null = null;
 
-  constructor(private cursoService: CursoService) {}
+  constructor(private cursoService: CursoService, private authService: AuthService) {}
 
   ngOnInit(): void {
   this.cursoService.Cursoss$.subscribe((cursos) => {
     this.cursos = cursos;
   });
+  this.rol = this.authService.getRol();
 }
 
 }

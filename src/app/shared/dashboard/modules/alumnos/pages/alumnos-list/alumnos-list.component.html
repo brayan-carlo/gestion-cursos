@@ -4,7 +4,7 @@
 
     <app-alumnos-table [alumnos]="alumnos$ | async" (eliminarAlumno)="eliminar($event)"(editar)="editar($event)"></app-alumnos-table>
 
-   <button mat-raised-button color="primary" [routerLink]="['/dashboard/alumnos/abm']">Nuevo Alumno</button>
+   <button *ngIf="rol === 'admin'" mat-raised-button color="primary"  [routerLink]="['/dashboard/alumnos/abm']">Nuevo Alumno</button>
   </div>
   
   

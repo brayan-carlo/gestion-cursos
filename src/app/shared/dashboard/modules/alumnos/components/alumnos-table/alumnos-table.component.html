@@ -1,12 +1,10 @@
-
 <mat-form-field>
   <mat-label>Buscar alumno</mat-label>
-  <input matInput (keyup)="applyFilter($event)" placeholder="Ejem.. Juan" #input>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ejem.. Juan" #input />
 </mat-form-field>
 
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
- 
   <ng-container matColumnDef="id">
     <th mat-header-cell *matHeaderCellDef>ID</th>
     <td mat-cell *matCellDef="let alumno">{{ alumno.id }}</td>
@@ -42,7 +40,6 @@
     </td>
   </ng-container>
 
-
   <ng-container matColumnDef="cursoId">
     <th mat-header-cell *matHeaderCellDef>Curso</th>
     <td mat-cell *matCellDef="let alumno">
@@ -52,17 +49,20 @@
       <ng-template #mostrarCurso>{{ alumno.cursoId }}</ng-template>
     </td>
   </ng-container>
-  <ng-container matColumnDef="acciones">
+
+  <ng-container *ngIf="rol === 'admin'" matColumnDef="acciones">
     <th mat-header-cell *matHeaderCellDef> Acciones </th>
     <td mat-cell *matCellDef="let alumno">
       <div *ngIf="editandoId === alumno.id; else botonesAcciones">
         <button mat-button color="primary" (click)="guardar(alumno)">Guardar</button>
-        </div>
+      </div>
       <ng-template #botonesAcciones>
         <button mat-icon-button color="primary" (click)="edit(alumno.id)" aria-label="Editar alumno">
-          <mat-icon>edit</mat-icon> </button>
+          <mat-icon>edit</mat-icon>
+        </button>
         <button mat-icon-button color="warn" (click)="onEliminar(alumno.id)" aria-label="Eliminar alumno">
-          <mat-icon>close</mat-icon> </button>
+          <mat-icon>close</mat-icon>
+        </button>
       </ng-template>
     </td>
   </ng-container>

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { InscripcionService } from 'src/app/core/services/inscripcion.service';
 import { CursoService } from 'src/app/core/services/curso.service';
-import { Inscripcion } from 'src/app/models/inscripcion.model';
 import { Cursos } from 'src/app/models/curso.model';
 import { Router } from '@angular/router';
 
@@ -23,17 +22,14 @@ export class InscripcionTableComponent implements OnInit {
   ) {}
 
   Inscripciones(curso: any) {
-  this.router.navigate(['/cursos', curso.id, 'inscripciones']);
+  console.log('Curso:', curso);
+  console.log('Navegando a: ', `/dashboard/inscripciones/${curso.id}/inscripciones`);
+  this.router.navigate(['/dashboard/inscripciones', curso.id, 'inscripciones']);
 }
 
  ngOnInit(): void {
-  this.inscripcionService.inscripciones$.subscribe(inscripciones => {
-    this.cursoService.Cursoss$.subscribe(cursos => {
-      const cursosMap = new Map(cursos.map(c => [c.id, c]));
-      this.cursosInscritos = inscripciones
-        .map(i => cursosMap.get(i.cursoId))
-        .filter((curso): curso is Cursos => !!curso && curso.status === 'Abierto');
-    });
+  this.cursoService.Cursoss$.subscribe(cursos => {
+    this.cursosInscritos = cursos.filter(curso => curso.status === 'Abierto');
   });
 }
 

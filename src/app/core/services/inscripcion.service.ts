@@ -28,6 +28,15 @@ export class InscripcionService {
   this.inscripcionesSubject.next(nuevas);
 }
 
+agregarInscripcion(inscripcion: Omit<Inscripcion, 'id'>): void {
+  const actuales = this.inscripcionesSubject.getValue();
+  const nueva: Inscripcion = {
+    ...inscripcion,
+    id: actuales.length > 0 ? Math.max(...actuales.map(i => i.id)) + 1 : 1
+  };
+  this.inscripcionesSubject.next([...actuales, nueva]);
+}
+
 
 }
 

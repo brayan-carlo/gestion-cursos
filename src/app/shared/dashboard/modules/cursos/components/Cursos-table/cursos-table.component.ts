@@ -3,6 +3,8 @@ import { Component, Input } from '@angular/core';
 import { CursoService } from 'src/app/core/services/curso.service';
 import { Router } from '@angular/router';
 import { Cursos } from "src/app/models/curso.model";
+import { AuthService } from 'src/app/core/services/auth.service';
+
 
 @Component({
   selector: 'app-cursos-table',
@@ -15,11 +17,13 @@ export class CursosTableComponent {
  @Input() cursos: Cursos[] = [];
   editandoCursoId: number | null = null;
   cursoEditado: Partial<Cursos> = {};
+  rol: string | null = null;
 
 
  constructor(
     private cursoService: CursoService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
  deleteCurso(id: number): void {
@@ -45,5 +49,10 @@ export class CursosTableComponent {
   }
 
  
+  ngOnInit(): void {
+    this.rol = this.authService.getRol();
+
+    
+  }
 }
 

@@ -3,7 +3,8 @@ import { InscripcionConAlumno } from 'src/app/models/inscripcion.model';
 import { AlumnoService } from 'src/app/core/services/alumno.service';
 import { InscripcionService } from 'src/app/core/services/inscripcion.service';
 import { ActivatedRoute } from '@angular/router';
-
+import { MatDialog } from '@angular/material/dialog';
+import { SeleccionarAlumnoDialogComponent } from 'src/app/shared/dashboard/modules/inscripciones/Component/Selector-dialog/seleccionar-alumno-dialog.component';
 
 @Component({
   selector: 'app-inscripciones-table',
@@ -17,11 +18,13 @@ export class InscriptionListComponent implements OnInit {
   inscripciones: InscripcionConAlumno[] = [];
   filtro: string = '';
   columnas: string[] = ['id', 'nombre', 'apellido', 'email', 'acciones'];
+  alumnosNoInscritos: any[] = [];
 
   constructor(
     private route: ActivatedRoute,
     private inscripcionService: InscripcionService,
-    private alumnoService: AlumnoService
+    private alumnoService: AlumnoService,
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -41,6 +44,9 @@ export class InscriptionListComponent implements OnInit {
           alumno: alumno! 
         };
       });
+
+      const idsInscritos = delCurso.map(i => i.alumnoId);
+      this.alumnosNoInscritos = alumnos.filter(a => !idsInscritos.includes(a.id));
     });
   });
 }
@@ -61,7 +67,26 @@ export class InscriptionListComponent implements OnInit {
     );
   }
 
-  nuevaInscripcion() {
-    console.log('Nueva inscripción');
+  agregarAlumno(alumno: any) {
+  this.inscripcionService.agregarInscripcion({
+    alumnoId: alumno.id,
+    cursoId: this.cursoId,
+    fechaInscripcion: new Date()
+  });
+  this.cargarInscripciones(); 
+}
+
+abrirDialogoSeleccion() {
+  const dialogRef = this.dialog.open(SeleccionarAlumnoDialogComponent, {
+    width: '400px',
+    data: { alumnos: this.alumnosNoInscritos }
+  });
+
+  dialogRef.afterClosed().subscribe(alumno => {
+    if (alumno) {
+      this.agregarAlumno(alumno);
+    }
+  });
   }
+
 }
