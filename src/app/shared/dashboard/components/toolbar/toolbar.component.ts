@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/shared/auth/services/auth.service';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { DrawerService } from 'src/app/core/services/drawer.service.ts.service';
+import { Usuario } from 'src/app/models/usuario.model';
+
 
 
 
@@ -15,6 +17,9 @@ import { DrawerService } from 'src/app/core/services/drawer.service.ts.service';
  
 })
 export class ToolbarComponent {
+
+  usuario: Usuario | null = null;
+
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -22,9 +27,15 @@ export class ToolbarComponent {
 
   ) {}
 
+
+  ngOnInit() {
+    this.usuario = this.authService.getUsuarioActual();
+    console.log('Usuario actual:', this.usuario?.nombre, this.usuario?.apellido);
+  }
   logout() {
-    this.authService.logout();      // Borramos el usuario
-    this.router.navigate(['/login1']); // Redirigimos a login
+    this.authService.logout();
+    this.router.navigate(['/login']);
+
   }
 
   toggleDrawer() {

@@ -2,21 +2,23 @@
 <p-table [value]="cursos" [paginator]="true" [rows]="5" [responsiveLayout]="'scroll'">
   <ng-template pTemplate="header">
   <tr>
-    <th class="table-header">Id</th>
+     <th class="table-header">Imagen</th>
     <th class="table-header">Curso</th>
     <th class="table-header">Descripción</th>
     <th class="table-header">Duración</th>
     <th class="table-header">Precio</th>
-    <th class="table-header">Imagen</th>
     <th class="table-header">Estado</th>
     <th class="table-header">Inicio</th>
     <th class="table-header">Fin</th>
+    <th class="table-header">Horas</th>
+    <th class="table-header">Clases</th>
+    <th class="table-header">Profesor</th>
     <th class="table-header" *ngIf="rol === 'admin'">Acciones</th>
   </tr>
 </ng-template>
 <ng-template pTemplate="body" let-curso>
   <tr>
-    <td>{{ curso.id }}</td>
+     <td><img [src]="curso.avatar" alt="curso" width="80" class="img-rounded" /></td>
     <td>{{ curso.Nombre }}</td>
     <td>{{ curso.descripcion }}</td>
     <td>{{ curso.duracion }}</td>
@@ -24,7 +26,7 @@
     <input type="number" [(ngModel)]="curso.precio" />
   </ng-container>
   <ng-template #precioVista>{{ curso.precio | currency }}</ng-template></td>
-    <td><img [src]="curso.avatar" alt="curso" width="80" class="img-rounded" /></td>
+   
     <td>
   <ng-container *ngIf="editandoCursoId === curso.id; else estadoVista">
     <select [(ngModel)]="curso.status">
@@ -42,6 +44,9 @@
 
     <td>{{ curso.inicio }}</td>
     <td>{{ curso.fin }}</td>
+    <td>{{ curso.horas }}</td>
+    <td>{{ curso.clases }}</td>
+    <td>{{ curso.profesor }}</td>
     <td *ngIf="rol === 'admin'"> 
   <ng-container  *ngIf="editandoCursoId === curso.id; else accionesNormales">
   <button mat-icon-button color="accent" (click)="guardarCurso(curso)">

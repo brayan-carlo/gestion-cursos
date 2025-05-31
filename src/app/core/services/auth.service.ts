@@ -1,6 +1,7 @@
   import { Injectable } from '@angular/core';
   import { BehaviorSubject, Observable } from 'rxjs';
   import { Usuario } from 'src/app/models/usuario.model';
+  
 
   @Injectable({
     providedIn: 'root'
@@ -15,21 +16,27 @@
         apellido: 'Pérez',
         email: 'juan.perez@example.com',
         password: 'admin123',
-        rol: 'admin'
+        rol: 'admin',
+        direccion: 'Calle Falsa 123',
+        telefono: '123456789'
       },
       {
         nombre: 'María',
         apellido: 'Gómez',
         email: 'maria.gomez@example.com',
         password: 'user123',
-        rol: 'usuario'
+        rol: 'usuario',
+        direccion: 'Calle Verdadera 456',
+        telefono: '987654321'
       },
       {
         nombre: 'Pedro',
         apellido: 'López',
         email: 'pedro.lopez@example.com',
         password: 'user456',
-        rol: 'usuario'
+        rol: 'usuario',
+        direccion: 'Calle Imaginaria 789',
+        telefono: '456789123'
       }
     ]);
 

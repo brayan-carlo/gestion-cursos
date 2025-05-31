@@ -30,6 +30,9 @@ export class CursoAbmComponent implements OnInit {
       estado: ['Abierto', Validators.required],
       fechaInicio: ['', Validators.required],
       fechaFin: ['', Validators.required],
+      horas: [0, [Validators.required, Validators.min(1)]],
+      clases: [0, [Validators.required, Validators.min(1)]],
+      profesor: ['', Validators.required]
     });
   }
 
@@ -40,7 +43,7 @@ export class CursoAbmComponent implements OnInit {
     }
 
     const nuevoCurso: Cursos = {
-      id: Math.floor(Math.random() * 10000),
+      id: Math.floor(Math.random() * 1000), 
       Nombre: this.formCurso.value.nombre,
       descripcion: this.formCurso.value.descripcion,
       duracion: this.formCurso.value.duracion,
@@ -49,6 +52,9 @@ export class CursoAbmComponent implements OnInit {
       status: this.formCurso.value.estado,
       inicio: this.formCurso.value.fechaInicio,
       fin: this.formCurso.value.fechaFin,
+      horas: this.formCurso.value.horas,
+      clases: this.formCurso.value.clases,
+      profesor: this.formCurso.value.profesor,
     };
 
     console.log('Curso guardado:', nuevoCurso);

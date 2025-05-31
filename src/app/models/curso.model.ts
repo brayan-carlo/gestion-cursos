@@ -8,5 +8,8 @@ export interface Cursos {
     status: string;
     inicio: string;
     fin: string;
+    horas: number;
+    clases: number;
+    profesor: string;
   }
   

@@ -49,6 +49,21 @@
       <mat-datepicker #finPicker></mat-datepicker>
     </mat-form-field>
 
+    <mat-form-field appearance="fill">
+      <mat-label>Horas</mat-label>
+      <input matInput formControlName="horas" type="number" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Clases</mat-label>
+      <input matInput formControlName="clases" type="number" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Profesor</mat-label>
+      <input matInput formControlName="profesor" />
+    </mat-form-field>
+
     <div class="form-buttons">
       <button mat-raised-button color="primary" (click)="guardarCurso()">Guardar</button>
       <button mat-button routerLink="/dashboard/cursos">Cancelar</button>

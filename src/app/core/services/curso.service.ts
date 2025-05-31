@@ -19,6 +19,9 @@ export class CursoService {
         status: 'Abierto',
         inicio: '2023-10-01',
         fin: '2023-12-31',
+        horas: 120,
+        clases: 30,
+        profesor: 'Juan Pérez'
       },
       {
         id: 2,
@@ -30,6 +33,9 @@ export class CursoService {
         status: 'Cerrado',
         inicio: '2023-10-01',
         fin: '2023-12-31',
+        horas: 120,
+        clases: 30,
+        profesor: 'Juan Pérez'
       },
       {
         id: 3,
@@ -41,6 +47,9 @@ export class CursoService {
         status: 'Abierto',
         inicio: '2023-10-01',
         fin: '2023-12-31',
+        horas: 120,
+        clases: 30,
+        profesor: 'Juan Pérez'
       },
       {
         id: 4,
@@ -52,6 +61,9 @@ export class CursoService {
         status: 'Abierto',
         inicio: '2023-10-01',
         fin: '2023-12-31',
+        horas: 120,
+        clases: 30,
+        profesor: 'Juan Pérez'
       }
     ])
   
