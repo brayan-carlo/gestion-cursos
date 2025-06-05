@@ -28,9 +28,10 @@ export class InscripcionTableComponent implements OnInit {
 }
 
  ngOnInit(): void {
-  this.cursoService.Cursoss$.subscribe(cursos => {
+  this.cursoService.obtenerCursos().subscribe(cursos => {
     this.cursosInscritos = cursos.filter(curso => curso.status === 'Abierto');
   });
 }
+
 
 }

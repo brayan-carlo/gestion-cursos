@@ -24,7 +24,23 @@ export class LoginComponent {
     });
   }
 
+
   onLogin(): void {
+  if (this.loginForm.invalid) return;
+
+  const { email, password } = this.loginForm.value;
+
+  this.authService.validarCredenciales(email, password).subscribe(usuario => {
+    if (usuario) {
+      this.authService.login(usuario);
+      this.router.navigate(['/dashboard']);
+    } else {
+      alert('Credenciales incorrectas');
+    }
+  });
+}
+
+  /*onLogin(): void {
     if (this.loginForm.invalid) return;
 
     const { email, password } = this.loginForm.value;
@@ -36,5 +52,5 @@ export class LoginComponent {
     } else {
       alert('Credenciales incorrectas');
     }
-  }
+  }*/
 }

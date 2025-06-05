@@ -42,8 +42,8 @@ export class CursoAbmComponent implements OnInit {
       return;
     }
 
-    const nuevoCurso: Cursos = {
-      id: Math.floor(Math.random() * 1000), 
+    const nuevoCurso = {
+      id: (Math.floor(Math.random() * 1000)).toString(), 
       Nombre: this.formCurso.value.nombre,
       descripcion: this.formCurso.value.descripcion,
       duracion: this.formCurso.value.duracion,
@@ -57,10 +57,15 @@ export class CursoAbmComponent implements OnInit {
       profesor: this.formCurso.value.profesor,
     };
 
-    console.log('Curso guardado:', nuevoCurso);
-
-    this.cursoService.agregarCursos(nuevoCurso);
-    this.router.navigate(['/dashboard/cursos']);
+    
+    this.cursoService.agregarCurso(nuevoCurso).subscribe({
+      next: () => {
+        this.router.navigate(['/dashboard/cursos']);
+      },
+      error: (err) => {
+        console.error('Error al agregar curso:', err);
+      }
+    });
   }
 
   cancelar(): void {

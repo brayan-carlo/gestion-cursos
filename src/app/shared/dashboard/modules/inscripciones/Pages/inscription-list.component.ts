@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { InscripcionConAlumno } from 'src/app/models/inscripcion.model';
 import { AlumnoService } from 'src/app/core/services/alumno.service';
 import { InscripcionService } from 'src/app/core/services/inscripcion.service';
@@ -12,7 +12,6 @@ import { SeleccionarAlumnoDialogComponent } from 'src/app/shared/dashboard/modul
   templateUrl: './inscription-list.component.html',
   styleUrls: ['./inscription-list.component.scss'],
 })
-
 export class InscriptionListComponent implements OnInit {
   cursoId!: number;
   inscripciones: InscripcionConAlumno[] = [];
@@ -28,33 +27,38 @@ export class InscriptionListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-  this.cursoId = Number(this.route.snapshot.paramMap.get('id'));
-  this.cargarInscripciones();
-}
+    this.cursoId = Number(this.route.snapshot.paramMap.get('id'));
+    this.cargarInscripciones();
+  }
 
   cargarInscripciones() {
-  this.inscripcionService.inscripciones$.subscribe(inscripciones => {
-    const delCurso = inscripciones.filter(i => i.cursoId === this.cursoId);
+    this.inscripcionService.obtenerInscripciones().subscribe(inscripciones => {
+      const delCurso = inscripciones.filter(i => i.cursoId === this.cursoId);
 
-    this.alumnoService.obtenerAlumnos().subscribe(alumnos => {
-      this.inscripciones = delCurso.map(inscripcion => {
-        const alumno = alumnos.find(a => a.id === inscripcion.alumnoId);
-        return {
-          ...inscripcion,
-          alumno: alumno! 
-        };
+      this.alumnoService.obtenerAlumnos().subscribe(alumnos => {
+        this.inscripciones = delCurso
+          .map(inscripcion => {
+            const alumno = alumnos.find(a => a.id === inscripcion.alumnoId);
+            if (!alumno) return null;
+            return {
+              ...inscripcion,
+              alumno
+            };
+          })
+          .filter((i): i is InscripcionConAlumno => i !== null);
+
+        const idsInscritos = this.inscripciones.map(i => i.alumnoId);
+        this.alumnosNoInscritos = alumnos.filter(a => !idsInscritos.includes(a.id));
       });
-
-      const idsInscritos = delCurso.map(i => i.alumnoId);
-      this.alumnosNoInscritos = alumnos.filter(a => !idsInscritos.includes(a.id));
     });
-  });
-}
+  }
 
   eliminarInscripcion(inscripcion: InscripcionConAlumno) {
     if (confirm(`¿Eliminar inscripción de ${inscripcion.alumno.nombre}?`)) {
-      this.inscripcionService.eliminarInscripcion(inscripcion.id);
-      this.inscripciones = this.inscripciones.filter(i => i.id !== inscripcion.id);
+      this.inscripcionService.eliminarInscripcion(inscripcion.id).subscribe(() => {
+        this.cargarInscripciones();
+        console.log('Inscripción eliminada:', inscripcion);
+      });
     }
   }
 
@@ -68,25 +72,25 @@ export class InscriptionListComponent implements OnInit {
   }
 
   agregarAlumno(alumno: any) {
-  this.inscripcionService.agregarInscripcion({
-    alumnoId: alumno.id,
-    cursoId: this.cursoId,
-    fechaInscripcion: new Date()
-  });
-  this.cargarInscripciones(); 
-}
-
-abrirDialogoSeleccion() {
-  const dialogRef = this.dialog.open(SeleccionarAlumnoDialogComponent, {
-    width: '400px',
-    data: { alumnos: this.alumnosNoInscritos }
-  });
-
-  dialogRef.afterClosed().subscribe(alumno => {
-    if (alumno) {
-      this.agregarAlumno(alumno);
-    }
-  });
+    this.inscripcionService.agregarInscripcion({
+      alumnoId: alumno.id,
+      cursoId: this.cursoId,
+      fechaInscripcion: new Date()
+    }).subscribe(() => {
+      this.cargarInscripciones();
+    });
   }
 
+  abrirDialogoSeleccion() {
+    const dialogRef = this.dialog.open(SeleccionarAlumnoDialogComponent, {
+      width: '400px',
+      data: { alumnos: this.alumnosNoInscritos }
+    });
+
+    dialogRef.afterClosed().subscribe(alumno => {
+      if (alumno) {
+        this.agregarAlumno(alumno);
+      }
+    });
+  }
 }

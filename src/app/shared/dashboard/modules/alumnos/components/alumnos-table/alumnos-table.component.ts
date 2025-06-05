@@ -45,14 +45,22 @@ export class AlumnosTableComponent implements OnInit {
 
   onEliminar(id: number) {
     this.eliminarAlumno.emit(id);
+    console.log(`---------Alumno con ID ${id}.-------`);
   }
 
   edit(id: number) {
     this.editandoId = id;
   }
 
-  guardar(alumno: Alumno) {
-    this.alumnoService.editarAlumno(alumno);
+ guardar(alumno: Alumno) {
+  this.alumnoService.editarAlumno(alumno).subscribe(() => {
     this.editandoId = null;
-  }
+    this.editar.emit(alumno.id);  
+  }, error => {
+    console.error('Error al editar alumno:', error);
+  });
 }
+
+}
+
+

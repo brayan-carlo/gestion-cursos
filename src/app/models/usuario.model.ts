@@ -6,5 +6,5 @@ export interface Usuario {
     direccion: string;
     telefono: string;
     rol: 'admin' | 'usuario';
-    
+    id: number;
   }

@@ -1,120 +1,69 @@
-  import { Injectable } from '@angular/core';
-  import { BehaviorSubject, Observable } from 'rxjs';
-  import { Usuario } from 'src/app/models/usuario.model';
-  
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Usuario } from 'src/app/models/usuario.model';
+import { Observable } from 'rxjs';
 
-  @Injectable({
-    providedIn: 'root'
-  })
-  export class AuthService {
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthService {
+  private apiUrl = 'http://localhost:3000/usuarios';
+  private usuarioActual: Usuario | null = null;
 
-    private usuarioActual: Usuario | null = null;
+  constructor(private http: HttpClient) {}
 
-    private usuariosSubject = new BehaviorSubject<Usuario[]>([
-      {
-        nombre: 'Juan',
-        apellido: 'Pérez',
-        email: 'juan.perez@example.com',
-        password: 'admin123',
-        rol: 'admin',
-        direccion: 'Calle Falsa 123',
-        telefono: '123456789'
-      },
-      {
-        nombre: 'María',
-        apellido: 'Gómez',
-        email: 'maria.gomez@example.com',
-        password: 'user123',
-        rol: 'usuario',
-        direccion: 'Calle Verdadera 456',
-        telefono: '987654321'
-      },
-      {
-        nombre: 'Pedro',
-        apellido: 'López',
-        email: 'pedro.lopez@example.com',
-        password: 'user456',
-        rol: 'usuario',
-        direccion: 'Calle Imaginaria 789',
-        telefono: '456789123'
-      }
-    ]);
+  obtenerUsuarios(): Observable<Usuario[]> {
+    return this.http.get<Usuario[]>(this.apiUrl);
+  }
 
-    usuarios$: Observable<Usuario[]> = this.usuariosSubject.asObservable();
+  obtenerUsuarioPorEmail(email: string): Observable<Usuario[]> {
+    return this.http.get<Usuario[]>(`${this.apiUrl}?email=${email}`);
+  }
 
-    constructor() { }
+  agregarUsuario(usuario: Usuario): Observable<Usuario> {
+    return this.http.post<Usuario>(this.apiUrl, usuario);
+  }
 
-    obtenerUsuarios(): Observable<Usuario[]> {
-      return this.usuarios$;
-    }
+  editarUsuario(usuario: Usuario): Observable<Usuario> {
+    return this.http.put<Usuario>(`${this.apiUrl}/${usuario.id}`, usuario);
+  }
 
-    editarUsuario(usuarioEditado: Usuario): void {
-      const usuariosActuales = this.usuariosSubject.getValue();
-      const usuariosActualizados = usuariosActuales.map(usuario =>
-        usuario.email === usuarioEditado.email ? usuarioEditado : usuario
-      );
-      this.usuariosSubject.next(usuariosActualizados);
-    }
+  eliminarUsuario(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
 
-    eliminarUsuario(email: string): void {
-      const usuariosActuales = this.usuariosSubject.getValue();
-      const usuariosActualizados = usuariosActuales.filter(u => u.email !== email);
-      this.usuariosSubject.next(usuariosActualizados);
-    }
+  validarCredenciales(email: string, password: string): Observable<Usuario | null> {
+    return new Observable(observer => {
+      this.obtenerUsuarioPorEmail(email).subscribe(usuarios => {
+        const usuario = usuarios.find(u => u.password === password);
+        observer.next(usuario ?? null);
+        observer.complete();
+      });
+    });
+  }
 
-    obtenerUsuarioPorId(email: string): Usuario | undefined {
-      return this.usuariosSubject.getValue().find(u => u.email === email);
-    }
+  login(usuario: Usuario): void {
+  this.usuarioActual = usuario;
+  localStorage.setItem('usuario', JSON.stringify(usuario));
+}
 
-    agregarUsuario(nuevoUsuario: Usuario): void {
-      const usuariosActuales = this.usuariosSubject.getValue();
-      const usuariosActualizados = [...usuariosActuales, nuevoUsuario];
-      this.usuariosSubject.next(usuariosActualizados);
-      console.log('Usuario agregado:', nuevoUsuario);
-    }
-
-    validarCredenciales(email: string, password: string): Usuario | null {
-      const usuario = this.usuariosSubject.getValue().find(
-        u => u.email === email && u.password === password
-      );
-      return usuario ?? null;
-    }
-
-    login(usuario: Usuario): void {
-      this.usuarioActual = usuario;
-      localStorage.setItem('usuario', JSON.stringify(usuario));
-    }
-
-    logout(): void {
-      this.usuarioActual = null;
-      localStorage.removeItem('usuario');
-    }
-
-    getRol(): 'admin' | 'usuario' | null {
-      if (!this.usuarioActual) {
-        const usuarioLocal = localStorage.getItem('usuario');
-        if (usuarioLocal) {
-          this.usuarioActual = JSON.parse(usuarioLocal);
-        }
-      }
-      return this.usuarioActual?.rol ?? null;
-    }
-
-    getUsuarioActual(): Usuario | null {
-      if (!this.usuarioActual) {
-        const usuarioLocal = localStorage.getItem('usuario');
-        if (usuarioLocal) {
-          this.usuarioActual = JSON.parse(usuarioLocal);
-        }
-      }
-      return this.usuarioActual;
-    }
-
-    esAdmin(): boolean {
-      return this.getRol() === 'admin';
-    }
-
-    esUsuario(): boolean {
-      return this.getRol() === 'usuario';
+getUsuarioActual(): Usuario | null {
+  if (!this.usuarioActual) {
+    const usuarioLocal = localStorage.getItem('usuario');
+    if (usuarioLocal) {
+      this.usuarioActual = JSON.parse(usuarioLocal);
     }
   }
+  return this.usuarioActual;
+}
+
+logout(): void {
+  this.usuarioActual = null;
+  localStorage.removeItem('usuario');
+}
+
+getRol(): 'admin' | 'usuario' | null {
+  const usuario = this.getUsuarioActual();
+  return usuario?.rol ?? null;
+}
+}

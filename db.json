@@ -1,0 +1,234 @@
+{
+  "cursos": [
+    {
+      "id": "1",
+      "Nombre": "Html",
+      "duracion": "3 meses",
+      "descripcion": "Curso de Html",
+      "precio": 156,
+      "avatar": "/imagenes/html5-logo.jpg",
+      "status": "Abierto",
+      "inicio": "2023-10-01",
+      "fin": "2023-12-31",
+      "horas": 120,
+      "clases": 30,
+      "profesor": "Juan Pérez"
+    },
+    {
+      "id": "2",
+      "Nombre": "Css",
+      "duracion": "3 meses",
+      "descripcion": "Curso de Css",
+      "precio": 100,
+      "avatar": "/imagenes/css-logo.jpg",
+      "status": "Cerrado",
+      "inicio": "2023-10-01",
+      "fin": "2023-12-31",
+      "horas": 120,
+      "clases": 30,
+      "profesor": "Juan Pérez"
+    },
+    {
+      "id": "3",
+      "Nombre": "JavaScript",
+      "duracion": "3 meses",
+      "descripcion": "Curso de JavaScript",
+      "precio": 100,
+      "avatar": "/imagenes/js-logo.jpg",
+      "status": "Abierto",
+      "inicio": "2023-10-01",
+      "fin": "2023-12-31",
+      "horas": 120,
+      "clases": 30,
+      "profesor": "Juan Pérez"
+    },
+    {
+      "id": "4",
+      "Nombre": "Angular",
+      "duracion": "3 meses",
+      "descripcion": "Curso de Angular",
+      "precio": 100,
+      "avatar": "/imagenes/angular-logo.jpg",
+      "status": "Abierto",
+      "inicio": "2023-10-01",
+      "fin": "2023-12-31",
+      "horas": 120,
+      "clases": 30,
+      "profesor": "Juan Pérez"
+    }
+  ],
+  "inscripciones": [
+    {
+      "id": "3b82",
+      "alumnoId": "1",
+      "cursoId": 3,
+      "fechaInscripcion": "2025-06-05T21:31:50.362Z"
+    },
+    {
+      "id": "0e87",
+      "alumnoId": "9",
+      "cursoId": 3,
+      "fechaInscripcion": "2025-06-05T21:31:54.110Z"
+    },
+    {
+      "id": "4982",
+      "alumnoId": "5",
+      "cursoId": 4,
+      "fechaInscripcion": "2025-06-05T21:31:59.002Z"
+    },
+    {
+      "id": "3a91",
+      "alumnoId": "1",
+      "cursoId": 4,
+      "fechaInscripcion": "2025-06-05T21:32:00.391Z"
+    },
+    {
+      "id": "6797",
+      "alumnoId": "8",
+      "cursoId": 4,
+      "fechaInscripcion": "2025-06-05T21:32:01.739Z"
+    },
+    {
+      "id": "837f",
+      "alumnoId": "5",
+      "cursoId": 1,
+      "fechaInscripcion": "2025-06-05T21:32:05.499Z"
+    },
+    {
+      "id": "6b2f",
+      "alumnoId": "9",
+      "cursoId": 1,
+      "fechaInscripcion": "2025-06-05T21:32:07.164Z"
+    },
+    {
+      "id": "1661",
+      "alumnoId": "10",
+      "cursoId": 1,
+      "fechaInscripcion": "2025-06-05T21:32:09.841Z"
+    },
+    {
+      "id": "2f54",
+      "alumnoId": "10",
+      "cursoId": 3,
+      "fechaInscripcion": "2025-06-05T21:34:15.837Z"
+    },
+    {
+      "id": "e858",
+      "alumnoId": "2",
+      "cursoId": 3,
+      "fechaInscripcion": "2025-06-05T21:34:17.468Z"
+    },
+    {
+      "id": "0891",
+      "alumnoId": "3",
+      "cursoId": 3,
+      "fechaInscripcion": "2025-06-05T21:34:19.030Z"
+    },
+    {
+      "id": "c044",
+      "alumnoId": "4",
+      "cursoId": 3,
+      "fechaInscripcion": "2025-06-05T21:34:20.462Z"
+    },
+    {
+      "id": "d318",
+      "alumnoId": "6",
+      "cursoId": 1,
+      "fechaInscripcion": "2025-06-05T21:34:25.178Z"
+    }
+  ],
+  "usuarios": [
+    {
+      "id": "1",
+      "nombre": "Juan",
+      "apellido": "Pérez",
+      "email": "admin@admin.com",
+      "password": "admin123",
+      "rol": "admin",
+      "direccion": "Calle Falsa 123",
+      "telefono": "123456789"
+    },
+    {
+      "id": "2",
+      "nombre": "María",
+      "apellido": "Gómez",
+      "email": "maria.gomez@example.com",
+      "password": "user123",
+      "rol": "usuario",
+      "direccion": "Calle Verdadera 456",
+      "telefono": "987654321"
+    },
+    {
+      "id": "3",
+      "nombre": "Pedro",
+      "apellido": "López",
+      "email": "pedro.lopez@example.com",
+      "password": "user456",
+      "rol": "usuario",
+      "direccion": "Calle Imaginaria 789",
+      "telefono": "456789123"
+    }
+  ],
+  "alumnos": [
+    {
+      "id": "1",
+      "nombre": "Juanita",
+      "apellido": "Pérez",
+      "email": "juanita.perez@example.com"
+    },
+    {
+      "id": "2",
+      "nombre": "María",
+      "apellido": "Gómeza",
+      "email": "maria.gomez@example.com"
+    },
+    {
+      "id": "3",
+      "nombre": "Valentin",
+      "apellido": "Ríos",
+      "email": "valentina.rios@example.com"
+    },
+    {
+      "id": "4",
+      "nombre": "Martín",
+      "apellido": "Sosa",
+      "email": "martin.sosa@example.com"
+    },
+    {
+      "id": "5",
+      "nombre": "Lucía",
+      "apellido": "Fernández",
+      "email": "lucia.fernandez@example.com"
+    },
+    {
+      "id": "6",
+      "nombre": "Joaquín",
+      "apellido": "Luna",
+      "email": "joaquin.luna@example.com"
+    },
+    {
+      "id": "7",
+      "nombre": "Camila",
+      "apellido": "Paz",
+      "email": "camila.paz@example.com"
+    },
+    {
+      "id": "8",
+      "nombre": "Mateo",
+      "apellido": "Herrera",
+      "email": "mateo.herrera@example.com"
+    },
+    {
+      "id": "9",
+      "nombre": "Sofía",
+      "apellido": "González",
+      "email": "sofia.gonzalez@example.com"
+    },
+    {
+      "id": "10",
+      "nombre": "Benjamín",
+      "apellido": "Castro",
+      "email": "benjamin.castro@example.com"
+    }
+  ]
+}

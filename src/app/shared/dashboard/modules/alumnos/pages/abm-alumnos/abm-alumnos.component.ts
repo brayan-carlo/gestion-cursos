@@ -4,10 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Alumno } from 'src/app/models/alumno.model';
 import { AlumnoService } from 'src/app/core/services/alumno.service';
 
-
 @Component({
-  standalone: false,
   selector: 'app-abm-alumnos',
+  standalone: false,
   templateUrl: './abm-alumnos.component.html',
   styleUrls: ['./abm-alumnos.component.scss']
 })
@@ -33,39 +32,49 @@ export class AbmAlumnosComponent implements OnInit {
       const id = params.get('id');
       if (id) {
         this.alumnoId = +id;
-        const alumno = this.alumnoService.obtenerAlumnoPorId(this.alumnoId);
-        if (alumno) {
+        this.alumnoService.obtenerAlumnoPorId(this.alumnoId).subscribe(alumno => {
           this.alumnoForm.patchValue({
             nombre: alumno.nombre,
             apellido: alumno.apellido,
             email: alumno.email
           });
-        }
+        });
       }
     });
   }
-  
-  guardar() {
+
+  guardar(): void {
     if (this.alumnoForm.valid) {
-      const alumno: Alumno = {
-        id: this.alumnoId ?? Date.now(), 
-        ...this.alumnoForm.value,
-        cursoId: 1
-      };
-  
-      
-        this.alumnoService.agregarAlumno(alumno);
-      
-  
-      this.router.navigate(['/dashboard/alumnos']);
+      if (this.alumnoId) {
+        const alumno: Alumno = {
+          id: this.alumnoId.toString(),
+          ...this.alumnoForm.value
+        };
+        this.alumnoService.editarAlumno(alumno).subscribe(() => {
+          this.router.navigate(['/dashboard/alumnos']);
+        });
+      } else {
+        this.alumnoService.obtenerAlumnos().subscribe(alumnos => {
+          const maxId = alumnos.length > 0
+            ? Math.max(...alumnos.map(a => a.id ?? 0))
+            : 0;
+
+          const nuevoAlumno = {
+            id: (maxId + 1).toString(),
+            ...this.alumnoForm.value
+          };
+
+          this.alumnoService.agregarAlumno(nuevoAlumno).subscribe(() => {
+            this.router.navigate(['/dashboard/alumnos']);
+          });
+        });
+      }
     } else {
       this.alumnoForm.markAllAsTouched();
     }
   }
-  
 
-  cancelar() {
+  cancelar(): void {
     this.router.navigate(['/dashboard/alumnos']);
   }
-  
 }

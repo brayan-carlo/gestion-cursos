@@ -1,24 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './shared/auth/pages/login/login.component';
-
-
-/*const routes: Routes = [
-  { path: 'login', component: LoginComponent },
- 
- 
-  {
-    path: 'dashboard',
-    loadChildren: () =>
-      import('./shared/dashboard/dashboard.module').then((m) => m.DashboardModule),
-  },
-
-
-  { path: '', redirectTo: 'login', pathMatch: 'full' }, // cuando no ponen nada, redirige al login
-  { path: '**', redirectTo: 'login' }, // cuando ponen cualquier otra cosa, también
-];
-*/
-
+import { AuthGuard } from './core/guards/auth.guard'; 
+import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [
   {
@@ -29,7 +13,8 @@ const routes: Routes = [
   {
     path: 'dashboard',
     loadChildren: () =>
-      import('./shared/dashboard/dashboard.module').then((m) => m.DashboardModule)
+      import('./shared/dashboard/dashboard.module').then((m) => m.DashboardModule),
+    canActivate: [AuthGuard]
   },
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
   { path: '**', redirectTo: 'auth/login' }
@@ -37,7 +22,7 @@ const routes: Routes = [
 
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes), HttpClientModule],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

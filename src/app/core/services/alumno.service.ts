@@ -1,71 +1,38 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { Alumno } from 'src/app/models/alumno.model';
+import { AlumnoCreate } from 'src/app/models/alumno.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AlumnoService {
-  private alumnosSubject = new BehaviorSubject<Alumno[]>([
-    {
-      id: 1,
-      nombre: 'Juan',
-      apellido: 'Pérez',
-      email: 'juan.perez@example.com',
-    },
-    {
-      id: 2,
-      nombre: 'María',
-      apellido: 'Gómez',
-      email: 'marsia.gomez@example.com',
-    },
-    {
-      id: 4,
-      nombre: 'rgreg',
-      apellido: 'Gómez',
-      email: 'marisa.gomez@example.com',
-    },
-    {
-      id: 3,
-      nombre: 'ergeg',
-      apellido: 'ergerg',
-      email: 'margia.gomez@example.com',
-    }
-  ]);
+  private apiUrl = 'http://localhost:3000/alumnos';
 
-  alumnos$: Observable<Alumno[]> = this.alumnosSubject.asObservable();
-
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
   obtenerAlumnos(): Observable<Alumno[]> {
-    return this.alumnos$;
-  }
-  
-
-  editarAlumno(alumnoEditado: Alumno): void {
-    const alumnosActuales = this.alumnosSubject.getValue();
-    const alumnosActualizados = alumnosActuales.map(alumno =>
-      alumno.id === alumnoEditado.id ? alumnoEditado : alumno
-    );
-    this.alumnosSubject.next(alumnosActualizados);
-  }
-  
-
-  eliminarAlumno(id: number): void {
-    const alumnosActuales = this.alumnosSubject.getValue();
-    const alumnosActualizados = alumnosActuales.filter(a => a.id !== id);
-    this.alumnosSubject.next(alumnosActualizados);
+    return this.http.get<Alumno[]>(this.apiUrl);
   }
 
-  obtenerAlumnoPorId(id: number): Alumno | undefined {
-    const alumnosActuales = this.alumnosSubject.getValue();
-    return alumnosActuales.find(a => a.id === id);
+  obtenerAlumnoPorId(id: number): Observable<Alumno> {
+    return this.http.get<Alumno>(`${this.apiUrl}/${id}`);
   }
 
-  agregarAlumno(nuevoAlumno: Alumno): void {
-    const alumnosActuales = this.alumnosSubject.getValue();
-    const alumnosActualizados = [...alumnosActuales, nuevoAlumno];
-    this.alumnosSubject.next(alumnosActualizados);
+  agregarAlumno(nuevoAlumno: AlumnoCreate): Observable<AlumnoCreate> {
+    return this.http.post<AlumnoCreate>(this.apiUrl, nuevoAlumno);
   }
-  
+
+ editarAlumno(alumnoEditado: Alumno): Observable<Alumno> {
+  return this.http.put<Alumno>(`${this.apiUrl}/${alumnoEditado.id}`, alumnoEditado);
+}
+
+
+  eliminarAlumno(id: string | number): Observable<void> {
+  const idNumerico = typeof id === 'string' ? parseInt(id) : id;
+  console.log("tipo de id luego de parseInt:", typeof idNumerico);
+  return this.http.delete<void>(`${this.apiUrl}/${idNumerico}`);
+}
+
 }

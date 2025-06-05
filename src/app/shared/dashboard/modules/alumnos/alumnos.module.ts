@@ -11,12 +11,13 @@ import { MatButtonModule } from '@angular/material/button';
 import {AlumnosRoutingModule} from './alumnos-routing.module';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
   declarations: [
     AlumnosListComponent,
-    AbmAlumnosComponent , 
+    AbmAlumnosComponent,
     AlumnosTableComponent
   ],
   imports: [
@@ -28,7 +29,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatButtonModule,
     ReactiveFormsModule,
     MatIconModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ]
 })
 export class AlumnosModule { }

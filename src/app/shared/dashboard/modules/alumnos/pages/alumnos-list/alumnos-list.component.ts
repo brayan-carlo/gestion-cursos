@@ -12,25 +12,33 @@ import { AuthService } from 'src/app/core/services/auth.service';
 })
 export class AlumnosListComponent implements OnInit {
   alumnos$!: Observable<Alumno[]>;
-    rol: string | null = null;
+  rol: string | null = null;
 
   constructor(private alumnoService: AlumnoService, private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.alumnos$ = this.alumnoService.obtenerAlumnos();
+    this.cargarAlumnos();
     this.rol = this.authService.getRol();
+  }
+
+  cargarAlumnos(): void {
+    this.alumnos$ = this.alumnoService.obtenerAlumnos();
   }
 
   eliminar(id: number): void {
     const confirmar = confirm('¿Estás seguro que quieres eliminar este alumno?');
     if (confirmar) {
-      this.alumnoService.eliminarAlumno(id);
+      console.log(`---------Alumno con ID ${id}.-------entro al if`);
+      this.alumnoService.eliminarAlumno(id).subscribe(() => {
+        this.cargarAlumnos(); 
+      }, error => {
+        console.error(`Error al eliminar el alumno con ID ${id}:`, error);
+      });
     }
   }
 
-  editar(alumno: Alumno): void {    
-     this.alumnoService.editarAlumno(alumno);
-    
-  }
+  editar(alumno: Alumno): void {
+   this.cargarAlumnos();
+}
 
 }

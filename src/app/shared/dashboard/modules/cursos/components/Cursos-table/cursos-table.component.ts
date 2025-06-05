@@ -1,10 +1,8 @@
-
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CursoService } from 'src/app/core/services/curso.service';
 import { Router } from '@angular/router';
 import { Cursos } from "src/app/models/curso.model";
 import { AuthService } from 'src/app/core/services/auth.service';
-
 
 @Component({
   selector: 'app-cursos-table',
@@ -12,47 +10,49 @@ import { AuthService } from 'src/app/core/services/auth.service';
   styleUrls: ['./cursos-table.component.scss'],
   templateUrl: './cursos-table.component.html',
 })
-export class CursosTableComponent {
+export class CursosTableComponent implements OnInit {
 
- @Input() cursos: Cursos[] = [];
+  @Input() cursos: Cursos[] = [];
+  @Output() cursoActualizado = new EventEmitter<void>();
+
   editandoCursoId: number | null = null;
-  cursoEditado: Partial<Cursos> = {};
   rol: string | null = null;
 
-
- constructor(
+  constructor(
     private cursoService: CursoService,
     private router: Router,
     private authService: AuthService
   ) {}
 
- deleteCurso(id: number): void {
-   const confirmar = confirm('¿Estás seguro que quieres eliminar este alumno?');
+  ngOnInit(): void {
+    this.rol = this.authService.getRol();
+  }
+
+  deleteCurso(id: number): void {
+    const confirmar = confirm('¿Estás seguro que quieres eliminar este curso?');
     if (confirmar) {
-       this.cursoService.eliminarCursos(id);
+      this.cursoService.eliminarCurso(id).subscribe(() => {
+        this.cursoActualizado.emit();
+      });
     }
-   
   }
 
   editarCurso(curso: Cursos): void {
-  this.editandoCursoId = curso.id;
-}
+    this.editandoCursoId = curso.id;
+    
+  }
 
   guardarCurso(curso: Cursos): void {
-  this.cursoService.editarCurso(curso);
-  this.cancelarEdicion();
+  if (curso && curso.id) {
+    this.cursoService.editarCurso(curso).subscribe(() => {
+      this.cancelarEdicion();
+    });
+  }
 }
+
 
   cancelarEdicion(): void {
     this.editandoCursoId = null;
-    this.cursoEditado = {};
-  }
-
- 
-  ngOnInit(): void {
-    this.rol = this.authService.getRol();
-
-    
+   
   }
 }
-
